@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Header from "../src/components/header";
-import Task from "../src/components/task";
+import Task from "./components/task";
+import Footer from '../src/components/footer'
 
 import "./index.css";
 
@@ -11,6 +12,7 @@ const App = () => {
     <div>
       <Header />
       <Task />
+		<Footer />
     </div>
   );
 };
