@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import Header from "../src/components/header";
+import Task from "../src/components/task";
+
 import "./index.css";
 
-const Header = () => {
+const App = () => {
   return (
-    <header className="header">
-      <h1>todos</h1>
-      <input
-        className="new-todo"
-        placeholder="What needs to be done?"
-        autofocus
-      />
-    </header>
+    <div>
+      <Header />
+      <Task />
+    </div>
   );
 };
 
-ReactDOM.render(<Header />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
