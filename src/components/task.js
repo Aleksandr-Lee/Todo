@@ -1,8 +1,7 @@
 import React from "react";
 
-const Task = () => {
+const Task = (props) => {
   return (
-    <section className="main">
       <ul className="todo-list">
         <li className="completed">
           <div className="view">
@@ -39,7 +38,6 @@ const Task = () => {
           </div>
         </li>
       </ul>
-    </section>
   );
 };
 
