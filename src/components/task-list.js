@@ -14,9 +14,9 @@ const TaskList = (props) => {
         checked={item.checked}
         created={item.created}
         onDeletTask={() => props.onDeletTask(item.id)}
-        //   onEdit={() => props.onEdit(item.id)}
-        //   editingTask={props.editingTask}
-        onEditingTask={() => props.onEditingTask(item.id)}
+        onEdit={() => props.onEdit(item.id)}
+        editingTask={props.editingTask}
+        //   onEditingTask={() => props.onEditingTask(item.id)}
         onCompletedTask={() => props.onCompletedTask(item.id)}
       />
     );
