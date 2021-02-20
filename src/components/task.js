@@ -9,7 +9,6 @@ class Task extends React.Component {
     };
 
     this.onEnterEdit = (e) => {
-      e.preventDefault();
       this.setState({
         value: e.target.value,
       });
@@ -18,23 +17,17 @@ class Task extends React.Component {
     this.onSubmitEdit = (e) => {
       e.preventDefault();
       this.props.editingTask(this.state.value, props.id);
-      this.setState((state) => {
-        return {};
-      });
+      if (!this.state.value) this.props.onDeletTask(props.id);
     };
 
     this.onChecked = () => {};
   }
+
   render() {
+	  
     let classNames;
-    if (this.props.completed) {
-      classNames = "completed";
-    }
-    if (this.props.editing) {
-      classNames = "editing";
-    } else {
-      classNames = "";
-    }
+    if (this.props.completed) classNames = "completed";
+    if (this.props.editing) classNames = "editing";
 
     return (
       <li className={classNames}>
@@ -58,8 +51,9 @@ class Task extends React.Component {
           </label>
           <button
             className="icon icon-edit"
-            onClick={this.props.onEdit}
-            // onClick={this.props.onEditingTask}
+            onClick={() =>
+              this.props.editingTask(this.state.value, this.props.id)
+            }
           ></button>
           <button
             className="icon icon-destroy"

@@ -29,7 +29,7 @@ class NewTaskForm extends React.Component {
           className="new-todo"
           placeholder="What needs to be done?"
           value={this.state.task}
-          //  autofocus="autofocus"
+          autoFocus
           onChange={this.onEnterTask}
         />
       </form>

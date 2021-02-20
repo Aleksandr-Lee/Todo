@@ -95,44 +95,36 @@ class App extends React.Component {
     //    });
     //  };
 
-    this.onEdit = (id) => {
-      const idx = this.state.tasks.findIndex((el) => el.id === id);
-      const oldTask = this.state.tasks[idx];
-      const newTask = {
-        ...oldTask,
-        editing: !oldTask.editing,
-      };
-      this.setState((state) => {
-        const newArray = [
-          ...state.tasks.slice(0, idx),
-          newTask,
-          ...state.tasks.slice(idx + 1),
-        ];
-        return {
-          tasks: newArray,
-        };
-      });
-    };
+    //  this.onEdit = (id) => {
+    //    const idx = this.state.tasks.findIndex((el) => el.id === id);
+    //    const oldTask = this.state.tasks[idx];
+    //    const newTask = {
+    //      ...oldTask,
+    //      editing: !oldTask.editing,
+    //    };
+    //    this.setState((state) => {
+    //      const newArray = [
+    //        ...state.tasks.slice(0, idx),
+    //        newTask,
+    //        ...state.tasks.slice(idx + 1),
+    //      ];
+    //      return {
+    //        tasks: newArray,
+    //      };
+    //    });
+    //  };
+
     this.editingTask = (text, id) => {
       const editedTaskList = this.state.tasks.map((item) => {
         if (id === item.id) {
           item.task = text;
+          item.editing = !item.editing;
         }
       });
       this.setState({
-        ask: editedTaskList,
+        editTask: editedTaskList,
       });
     };
-    //  	const newTask = {...this.state.tasks[id], task:text}
-    //  	console.log(newTask)
-
-    //  	 this.setState((state) => {
-    //  		const newArray = [newTask];
-    //  		return {
-    //  		  tasks: newArray,
-    //  		};
-    //  	 });
-    //   };
 
     this.addTask = (text) => {
       const newTask = {
@@ -165,10 +157,8 @@ class App extends React.Component {
     };
 
     this.onFilterTasks = (filterTasks) => {
-      this.setState((state) => {
-        return {
-          filterTasks: filterTasks,
-        };
+      this.setState({
+        filterTasks: filterTasks,
       });
     };
 
@@ -198,9 +188,7 @@ class App extends React.Component {
         <TaskList
           task={filterArr}
           onDeletTask={this.deletTask}
-          onEdit={this.onEdit}
           editingTask={this.editingTask}
-          //  onEditingTask={this.editingTask}
           onCompletedTask={this.onCompletedTask}
         />
         <Footer

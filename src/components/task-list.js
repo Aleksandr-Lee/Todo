@@ -2,7 +2,6 @@ import React from "react";
 import Task from "./task";
 
 const TaskList = (props) => {
-  // console.log(props)
   const element = props.task.map((item) => {
     return (
       <Task
@@ -14,9 +13,7 @@ const TaskList = (props) => {
         checked={item.checked}
         created={item.created}
         onDeletTask={() => props.onDeletTask(item.id)}
-        onEdit={() => props.onEdit(item.id)}
         editingTask={props.editingTask}
-        //   onEditingTask={() => props.onEditingTask(item.id)}
         onCompletedTask={() => props.onCompletedTask(item.id)}
       />
     );
