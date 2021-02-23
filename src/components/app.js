@@ -4,7 +4,6 @@ import Header from "./header";
 import NewTaskForm from "./new-task-form";
 import TaskList from "./task-list";
 import Footer from "./footer";
-
 import "../index.css";
 
 class App extends React.Component {
@@ -21,7 +20,7 @@ class App extends React.Component {
           completed: false,
           editing: false,
           checked: ("checked", false),
-          created: new Date() - 1020000,
+          created: new Date(new Date()) - 1020000,
         },
         {
           id: 2,
@@ -29,7 +28,7 @@ class App extends React.Component {
           completed: false,
           editing: false,
           checked: ("checked", false),
-          created: new Date() - 1,
+          created: new Date(new Date()) - 10000,
         },
         {
           id: 3,
@@ -37,7 +36,7 @@ class App extends React.Component {
           completed: false,
           editing: false,
           checked: ("checked", false),
-          created: new Date() - 300000,
+          created: new Date(new Date()) - 1,
         },
       ],
       filterTasks: "all",

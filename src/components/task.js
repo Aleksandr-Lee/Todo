@@ -1,4 +1,5 @@
 import React from "react";
+// import Date from "./date";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 class Task extends React.Component {
@@ -6,6 +7,7 @@ class Task extends React.Component {
     super(props);
     this.state = {
       value: this.props.task,
+      date: this.props.created,
     };
 
     this.onEnterEdit = (e) => {
@@ -23,8 +25,23 @@ class Task extends React.Component {
     this.onChecked = () => {};
   }
 
+  componentDidMount() {
+    this.timerID = setInterval(
+      () =>
+        this.setState({
+          date: new Date(new Date()),
+        }),
+      0
+    );
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   render() {
-	  
+    const resultTimer = formatDistanceToNow(this.props.created, {
+      includeSeconds: true,
+    });
     let classNames;
     if (this.props.completed) classNames = "completed";
     if (this.props.editing) classNames = "editing";
@@ -41,13 +58,9 @@ class Task extends React.Component {
           />
           <label>
             <span className="description">{this.props.task}</span>
-            <span className="created">
-              created{" "}
-              {formatDistanceToNow(this.props.created, {
-                includeSeconds: true,
-              })}{" "}
-              ago
-            </span>
+            <span className="created">created {resultTimer} ago</span>
+            {/* <Date /> */}
+            {/* <Date created={this.props.created} /> */}
           </label>
           <button
             className="icon icon-edit"
@@ -74,7 +87,3 @@ class Task extends React.Component {
 }
 
 export default Task;
-// const Task = (props) => {
-//   const result = formatDistanceToNow(props.created, { includeSeconds: true });
-
-// };
