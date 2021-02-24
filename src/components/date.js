@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-class Date extends React.Component {
+class DateTask extends React.Component {
   constructor(props) {
     super(props);
 
@@ -9,30 +10,35 @@ class Date extends React.Component {
       date: this.props.created,
     };
   }
+
   componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
+    this.timerID = setInterval(
+      () =>
+        this.setState({
+          date: new Date(),
+        }),
+      0
+    );
   }
+
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
-  tick() {
-    this.setState({
-      date: new Date(new Date()),
-    });
-  }
+
   render() {
-    //  console.log(this.state.date);
-    return (
-      <span className="created">
-        {/* {this.state.date.toLocaleTimeString()} */}
-        created{" "}
-        {formatDistanceToNow(this.state.date, {
-          includeSeconds: true,
-        })}{" "}
-        ago
-      </span>
-    );
+    const resultTimer = formatDistanceToNow(this.props.created, {
+      includeSeconds: true,
+    });
+
+    return <span className="created">created {resultTimer} ago</span>;
   }
 }
 
-export default Date;
+DateTask.defaultProps = {
+  created: new Date() - 1,
+};
+
+DateTask.propTypes = {
+  created: PropTypes.number,
+};
+export default DateTask;

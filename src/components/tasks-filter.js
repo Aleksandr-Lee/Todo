@@ -1,25 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class TaskFilter extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   buttons = [
     { name: "all", text: "All" },
     { name: "active", text: "Active" },
     { name: "completed", text: "Completed" },
   ];
   render() {
-    const buttons = this.buttons.map((item) => {
-      const isActive = this.props.filterTasks === item.name;
+    const { filterTasks, onFilterTasks } = this.props;
+    const buttons = this.buttons.map(({name, text}) => {
+      const isActive = filterTasks === name;
       const classBtn = isActive ? "selected" : "";
       return (
-        <li key={item.name}>
-          <button
-            className={classBtn}
-            onClick={() => this.props.onFilterTasks(item.name)}
-          >
-            {item.text}
+        <li key={name}>
+          <button className={classBtn} onClick={() => onFilterTasks(name)}>
+            {text}
           </button>
         </li>
       );
@@ -27,5 +23,14 @@ class TaskFilter extends React.Component {
     return <ul className="filters">{buttons}</ul>;
   }
 }
+TaskFilter.defaultProps = {
+  filterTasks: "all",
+  onFilterTasks: () => {},
+};
+
+TaskFilter.propTypes = {
+  filterTasks: PropTypes.string,
+  onFilterTasks: PropTypes.func,
+};
 
 export default TaskFilter;

@@ -1,13 +1,13 @@
 import React from "react";
-// import Date from "./date";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import PropTypes from "prop-types";
+import DateTask from "./date";
 
 class Task extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       value: this.props.task,
-      date: this.props.created,
     };
 
     this.onEnterEdit = (e) => {
@@ -25,23 +25,7 @@ class Task extends React.Component {
     this.onChecked = () => {};
   }
 
-  componentDidMount() {
-    this.timerID = setInterval(
-      () =>
-        this.setState({
-          date: new Date(new Date()),
-        }),
-      0
-    );
-  }
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
   render() {
-    const resultTimer = formatDistanceToNow(this.props.created, {
-      includeSeconds: true,
-    });
     let classNames;
     if (this.props.completed) classNames = "completed";
     if (this.props.editing) classNames = "editing";
@@ -58,9 +42,7 @@ class Task extends React.Component {
           />
           <label>
             <span className="description">{this.props.task}</span>
-            <span className="created">created {resultTimer} ago</span>
-            {/* <Date /> */}
-            {/* <Date created={this.props.created} /> */}
+            <DateTask created={this.props.created} />
           </label>
           <button
             className="icon icon-edit"
@@ -85,5 +67,25 @@ class Task extends React.Component {
     );
   }
 }
+Task.defaultProps = {
+  checked: false,
+  completed: false,
+  created: new Date() - 1,
+  editing: false,
+  editingTask: () => {},
+  onCompletedTask: () => {},
+  onDeletTask: () => {},
+  task: "Error",
+};
 
+Task.propTypes = {
+  checked: PropTypes.bool,
+  completed: PropTypes.bool,
+  created: PropTypes.number,
+  editing: PropTypes.bool,
+  editingTask: PropTypes.func,
+  onCompletedTask: PropTypes.func,
+  onDeletTask: PropTypes.func,
+  task: PropTypes.string,
+};
 export default Task;

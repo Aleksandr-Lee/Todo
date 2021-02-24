@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Task from "./task";
 
 const TaskList = (props) => {
-  const element = props.task.map((item) => {
+  const { task, onDeletTask, editingTask, onCompletedTask } = props;
+  const element = task.map((item) => {
     return (
       <Task
         task={item.task}
@@ -12,9 +14,9 @@ const TaskList = (props) => {
         editing={item.editing}
         checked={item.checked}
         created={item.created}
-        onDeletTask={() => props.onDeletTask(item.id)}
-        editingTask={props.editingTask}
-        onCompletedTask={() => props.onCompletedTask(item.id)}
+        onDeletTask={() => onDeletTask(item.id)}
+        editingTask={editingTask}
+        onCompletedTask={() => onCompletedTask(item.id)}
       />
     );
   });
@@ -26,4 +28,17 @@ const TaskList = (props) => {
   );
 };
 
+TaskList.defaultProps = {
+  task: [],
+  onDeletTask: () => {},
+  editingTask: () => {},
+  onCompletedTask: () => {},
+};
+
+TaskList.propTypes = {
+  task: PropTypes.array,
+  onDeletTask: PropTypes.func,
+  editingTask: PropTypes.func,
+  onCompletedTask: PropTypes.func,
+};
 export default TaskList;

@@ -1,20 +1,27 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class NewTaskForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+  constructor(props) {
+	 
+    super(props);
+
+    const { onAddTask } = this.props;
+    
+	 this.state = {
       task: "",
     };
+	
     this.onEnterTask = (e) => {
       this.setState({
         task: e.target.value,
       });
     };
+	 
     this.onSubmit = (e) => {
       e.preventDefault();
       if (this.state.task) {
-        this.props.onAddTask(this.state.task);
+        onAddTask(this.state.task);
         this.setState({
           task: "",
         });
@@ -36,5 +43,12 @@ class NewTaskForm extends React.Component {
     );
   }
 }
+NewTaskForm.defaultProps = {
+	onAddTask: () => {},
+ };
+ 
+ NewTaskForm.propTypes = {
+	onAddTask: PropTypes.func,
+ };
 
 export default NewTaskForm;
