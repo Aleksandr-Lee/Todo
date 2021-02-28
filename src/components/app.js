@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Header from "./header";
-import NewTaskForm from "./new-task-form";
-import TaskList from "./task-list";
-import Footer from "./footer";
-import "../index.css";
+import Header from './header';
+import NewTaskForm from './new-task-form';
+import TaskList from './task-list';
+import Footer from './footer';
+import '../index.css';
 
 class App extends React.Component {
   constructor() {
@@ -14,32 +14,32 @@ class App extends React.Component {
 
     this.state = {
       tasks: [
-        {
-          id: 1,
-          task: "Completed task",
-          completed: false,
-          editing: false,
-          checked: ("checked", false),
-          created: new Date() - 1020000,
-        },
-        {
-          id: 2,
-          task: "Editing task",
-          completed: false,
-          editing: false,
-          checked: ("checked", false),
-          created: new Date() - 10000,
-        },
-        {
-          id: 3,
-          task: "Active task",
-          completed: false,
-          editing: false,
-          checked: ("checked", false),
-          created: new Date() - 1,
-        },
+        //   {
+        //     id: 1,
+        //     task: 'Completed task',
+        //     completed: false,
+        //     editing: false,
+        //     checked: ('checked', false),
+        //     created: new Date() - 1020000,
+        //   },
+        //   {
+        //     id: 2,
+        //     task: 'Editing task',
+        //     completed: false,
+        //     editing: false,
+        //     checked: ('checked', false),
+        //     created: new Date() - 10000,
+        //   },
+        //   {
+        //     id: 3,
+        //     task: 'Active task',
+        //     completed: false,
+        //     editing: false,
+        //     checked: ('checked', false),
+        //     created: new Date() - 1,
+        //   },
       ],
-      filterTasks: "all",
+      filterTasks: 'all',
     };
 
     this.onCompletedTask = (id) => {
@@ -76,24 +76,29 @@ class App extends React.Component {
     };
 
     this.editingTask = (text, id) => {
-      const editedTaskList = this.state.tasks.map((item) => {
+      const { tasks } = this.state;
+      const editedTaskList = tasks.map((item) => {
         if (id === item.id) {
           item.task = text;
           item.editing = !item.editing;
         }
+        return [];
       });
-      this.setState({
-        editTask: editedTaskList,
+      this.setState(() => {
+        const newArray = editedTaskList;
+        return {
+          newArray,
+        };
       });
     };
 
     this.addTask = (text) => {
       const newTask = {
-        id: this.newId++,
+        id: this.newId ++,
         task: text,
         completed: false,
         editing: false,
-        checked: ("checked", false),
+        checked: ('checked', false),
         created: new Date() - 1,
       };
       this.setState((state) => {
@@ -106,11 +111,11 @@ class App extends React.Component {
 
     this.filterTasks = (tasks, filterTasks) => {
       switch (filterTasks) {
-        case "all":
+        case 'all':
           return tasks;
-        case "active":
+        case 'active':
           return tasks.filter((el) => !el.completed);
-        case "completed":
+        case 'completed':
           return tasks.filter((el) => el.completed);
         default:
           return tasks;
@@ -119,7 +124,7 @@ class App extends React.Component {
 
     this.onFilterTasks = (filterTasks) => {
       this.setState({
-        filterTasks: filterTasks,
+        filterTasks,
       });
     };
 
@@ -134,13 +139,10 @@ class App extends React.Component {
   }
 
   render() {
-    const itemsLeftCount = this.state.tasks.filter((el) => !el.completed)
-      .length;
-    const completedTask = this.state.tasks.filter((el) => el.completed);
-    const filterArr = this.filterTasks(
-      this.state.tasks,
-      this.state.filterTasks
-    );
+    const { tasks, filterTasks } = this.state;
+    const itemsLeftCount = tasks.filter((el) => !el.completed).length;
+    const completedTask = tasks.filter((el) => el.completed);
+    const filterArr = this.filterTasks(tasks, filterTasks);
 
     return (
       <div>
@@ -154,7 +156,7 @@ class App extends React.Component {
         />
         <Footer
           itemsLeftCount={itemsLeftCount}
-          filterTasks={this.state.filterTasks}
+          filterTasks={filterTasks}
           onFilterTasks={this.onFilterTasks}
           completedTask={completedTask}
           onClearCompletedTasks={this.clearCompletedTasks}

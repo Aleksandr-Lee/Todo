@@ -1,34 +1,47 @@
-import React from "react";
-import PropTypes from "prop-types";
-import DateTask from "./date";
+import React from 'react';
+import PropTypes from 'prop-types';
+import DateTask from './date';
 
 class Task extends React.Component {
   constructor(props) {
     super(props);
-
+    const { task, editingTask, id, onDeletTask } = this.props;
     this.state = {
-      value: this.props.task,
+      value: task,
     };
 
-    this.onEnterEdit = (e) => {
+    this.onEnterEdit = (event) => {
       this.setState({
-        value: e.target.value,
+        value: event.target.value,
       });
     };
 
-    this.onSubmitEdit = (e) => {
-      e.preventDefault();
-      this.props.editingTask(this.state.value, props.id);
-      if (!this.state.value) this.props.onDeletTask(props.id);
+    this.onSubmitEdit = (event) => {
+      const { value } = this.state;
+      event.preventDefault();
+      editingTask(value, id);
+      if (!value) onDeletTask(id);
     };
 
     this.onChecked = () => {};
   }
 
   render() {
+    const {
+      completed,
+      editing,
+      checked,
+      onCompletedTask,
+      task,
+      created,
+      editingTask,
+      id,
+      onDeletTask,
+    } = this.props;
+    const { value } = this.state;
     let classNames;
-    if (this.props.completed) classNames = "completed";
-    if (this.props.editing) classNames = "editing";
+    if (completed) classNames = 'completed';
+    if (editing) classNames = 'editing';
 
     return (
       <li className={classNames}>
@@ -36,30 +49,32 @@ class Task extends React.Component {
           <input
             className="toggle"
             type="checkbox"
-            checked={this.props.checked}
-            onClick={this.props.onCompletedTask}
+            checked={checked}
+            onClick={onCompletedTask}
             onChange={this.onChecked}
           />
           <label>
-            <span className="description">{this.props.task}</span>
-            <DateTask created={this.props.created} />
+            <span className="description">{task}</span>
+            <DateTask created={created} />
           </label>
           <button
+            type="button"
+            aria-label="Изменение задачи"
             className="icon icon-edit"
-            onClick={() =>
-              this.props.editingTask(this.state.value, this.props.id)
-            }
-          ></button>
+            onClick={() => editingTask(value, id)}
+          />
           <button
+            type="button"
+            aria-label="Удвление задачи"
             className="icon icon-destroy"
-            onClick={this.props.onDeletTask}
-          ></button>
+            onClick={onDeletTask}
+          />
         </div>
         <form onSubmit={this.onSubmitEdit}>
           <input
             type="text"
             className="edit"
-            value={this.state.value}
+            value={value}
             onChange={this.onEnterEdit}
           />
         </form>
@@ -68,6 +83,7 @@ class Task extends React.Component {
   }
 }
 Task.defaultProps = {
+  id: undefined,
   checked: false,
   completed: false,
   created: new Date() - 1,
@@ -75,10 +91,11 @@ Task.defaultProps = {
   editingTask: () => {},
   onCompletedTask: () => {},
   onDeletTask: () => {},
-  task: "Error",
+  task: 'Error',
 };
 
 Task.propTypes = {
+  id: PropTypes.number,
   checked: PropTypes.bool,
   completed: PropTypes.bool,
   created: PropTypes.number,

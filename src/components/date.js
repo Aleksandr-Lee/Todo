@@ -1,32 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import React from 'react';
+import PropTypes from 'prop-types';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 class DateTask extends React.Component {
   constructor(props) {
     super(props);
-
+    const { created } = this.props;
     this.state = {
-      date: this.props.created,
+      date: created,
+    };
+    this.componentDidMount = () => {
+      this.timerID = setInterval(
+        () =>
+          this.setState({
+            date: created,
+          }),
+        0
+      );
+    };
+
+    this.componentWillUnmount = () => {
+      clearInterval(this.timerID);
     };
   }
 
-  componentDidMount() {
-    this.timerID = setInterval(
-      () =>
-        this.setState({
-          date: new Date(),
-        }),
-      0
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
   render() {
-    const resultTimer = formatDistanceToNow(this.props.created, {
+    const { date } = this.state;
+    const resultTimer = formatDistanceToNow(date, {
       includeSeconds: true,
     });
 
