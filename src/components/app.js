@@ -94,7 +94,7 @@ class App extends React.Component {
 
     this.addTask = (text) => {
       const newTask = {
-        id: this.newId ++,
+        id: (this.newId + 1),
         task: text,
         completed: false,
         editing: false,
