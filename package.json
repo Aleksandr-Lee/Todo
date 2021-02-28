@@ -20,8 +20,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix --color",
-    "format": "prettier",
-	 "precommit": "lint-staged"
+    "format": "prettier"
   },
   "eslintConfig": {
     "extends": [
@@ -54,12 +53,18 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1"
   },
- "lint-staged": {
-	"*.js": [
-	  "npm run lint:fix",
-	  "git add"
+  "husky": {
+	"hooks": {
+	  "pre-commit": "lint-staged"
+	}
+},
+"lint-staged": {
+	"src/**/*.{js,jsx,ts,tsx,json,css}": [
+		 "prettier --write",
+		 "eslint --fix src/",
+		 "git add"
 	]
- },
+},
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "repository": {
