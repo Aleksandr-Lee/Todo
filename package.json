@@ -54,17 +54,16 @@
     "prettier": "^2.2.1"
   },
   "husky": {
-	"hooks": {
-	  "pre-commit": "lint-staged"
-	}
-},
-"lint-staged": {
-	"src/**/*.{js,jsx,ts,tsx,json,css}": [
-		 "prettier --write",
-		 "eslint --fix src/",
-		 "git add"
-	]
-},
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:fix",
+      "git add"
+    ]
+  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "repository": {
