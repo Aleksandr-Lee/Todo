@@ -14,33 +14,34 @@ class App extends React.Component {
 
     this.state = {
       tasks: [
-        //   {
-        //     id: 1,
-        //     task: 'Completed task',
-        //     completed: false,
-        //     editing: false,
-        //     checked: ('checked', false),
-        //     created: new Date() - 1020000,
-        //   },
-        //   {
-        //     id: 2,
-        //     task: 'Editing task',
-        //     completed: false,
-        //     editing: false,
-        //     checked: ('checked', false),
-        //     created: new Date() - 10000,
-        //   },
-        //   {
-        //     id: 3,
-        //     task: 'Active task',
-        //     completed: false,
-        //     editing: false,
-        //     checked: ('checked', false),
-        //     created: new Date() - 1,
-        //   },
+        //  {
+        //    id: 1,
+        //    task: 'Completed task',
+        //    completed: false,
+        //    editing: false,
+        //    checked: ('checked', false),
+        //    created: new Date() - 1020000,
+        //  },
+        //  {
+        //    id: 2,
+        //    task: 'Editing task',
+        //    completed: false,
+        //    editing: false,
+        //    checked: ('checked', false),
+        //    created: new Date() - 10000,
+        //  },
+        //  {
+        //    id: 3,
+        //    task: 'Active task',
+        //    completed: false,
+        //    editing: false,
+        //    checked: ('checked', false),
+        //    created: new Date() - 1,
+        //  },
       ],
       filterTasks: 'all',
     };
+
     this.onCompletedTask = (id) => {
       this.setState((state) => {
         const idx = state.tasks.findIndex((el) => el.id === id);
@@ -73,6 +74,7 @@ class App extends React.Component {
         };
       });
     };
+
     this.editingTask = (text, id) => {
       const { tasks } = this.state;
       const editedTaskList = tasks.map((item) => {
@@ -89,9 +91,10 @@ class App extends React.Component {
         };
       });
     };
+
     this.addTask = (text) => {
       const newTask = {
-        id: this.newId + 1,
+        id: (this.newId += 1),
         task: text,
         completed: false,
         editing: false,

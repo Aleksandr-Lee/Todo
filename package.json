@@ -59,10 +59,8 @@
 	}
  },
  "lint-staged": {
-	"*.(js|jsx)": [
-	  "npm run lint:fix",
-	  "npm run format",
-	  "git add"
+	"*.js": [
+	  "npm run lint:fix"
 	]
  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
