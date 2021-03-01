@@ -18,9 +18,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js",
-    "lint:fix": "eslint --fix . --ext .js",
-    "format": "prettier --write src/"
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix --color",
+    "format": "prettier"
   },
   "eslintConfig": {
     "extends": [
@@ -54,11 +54,13 @@
     "prettier": "^2.2.1"
   },
   "husky": {
-	"hooks": {
-	  "pre-commit": "npm run lint",
-	  "pre-push": "npm run lint:fix"
-	}
- },
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+	"*.js": "npm run lint"
+  },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "repository": {
