@@ -59,7 +59,7 @@
     }
   },
   "lint-staged": {
-	"*.{js,jsx}": "eslint"
+	"*.{js,jsx}": "eslint --fix"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
