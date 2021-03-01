@@ -74,7 +74,7 @@ class App extends React.Component {
         };
       });
     };
-
+    var a = 2;
     this.editingTask = (text, id) => {
       const { tasks } = this.state;
       const editedTaskList = tasks.map((item) => {
