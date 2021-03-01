@@ -89,7 +89,6 @@ class App extends React.Component {
         };
       });
     };
-const a=3;
     this.addTask = (text) => {
       const newTask = {
         id: this.newId + 1,
