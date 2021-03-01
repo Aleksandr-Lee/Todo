@@ -41,7 +41,6 @@ class App extends React.Component {
       ],
       filterTasks: 'all',
     };
-    var a = 2;
     this.onCompletedTask = (id) => {
       this.setState((state) => {
         const idx = state.tasks.findIndex((el) => el.id === id);

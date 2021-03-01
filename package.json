@@ -14,13 +14,14 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
+	"lint": "eslint ./src",
+	"lint:fix": "eslint ./src --fix --color",
+	"format": "prettier",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix --color",
-    "format": "prettier"
+    "eject": "react-scripts eject"
+   
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +60,7 @@
     }
   },
   "lint-staged": {
-	"*.{js,jsx}": "npm run lint"
+	"*.js": "npm run lint"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
