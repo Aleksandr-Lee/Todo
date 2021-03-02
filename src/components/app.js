@@ -9,7 +9,6 @@ import '../index.css';
 class App extends React.Component {
   constructor() {
     super();
-
     this.newId = 100;
 
     this.state = {
