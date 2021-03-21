@@ -13,9 +13,9 @@ class DateTask extends React.Component {
       this.timerID = setInterval(
         () =>
           this.setState({
-            date: created,
+            date: new Date(created),
           }),
-        0
+        15000
       );
     };
 
@@ -29,16 +29,11 @@ class DateTask extends React.Component {
     const resultTimer = formatDistanceToNow(date, {
       includeSeconds: true,
     });
-
     return <span className="created">created {resultTimer} ago</span>;
   }
 }
 
-DateTask.defaultProps = {
-  created: new Date() - 1,
-};
-
 DateTask.propTypes = {
-  created: PropTypes.number,
+  created: PropTypes.number.isRequired,
 };
 export default DateTask;

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TaskFilter from './tasks-filter';
+import TaskFilter from './TasksFilter';
+import buttonsFilter from './buttonsFilter';
 
 const Footer = (props) => {
   const {
@@ -27,9 +28,8 @@ const Footer = (props) => {
 
 Footer.defaultProps = {
   itemsLeftCount: 0,
-  filterTasks: 'all',
+  filterTasks: buttonsFilter[0].name,
   onFilterTasks: () => {},
-  completedTask: [],
   onClearCompletedTasks: () => {},
 };
 
@@ -37,7 +37,7 @@ Footer.propTypes = {
   itemsLeftCount: PropTypes.number,
   filterTasks: PropTypes.string,
   onFilterTasks: PropTypes.func,
-  completedTask: PropTypes.arrayOf(PropTypes.object),
+  completedTask: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClearCompletedTasks: PropTypes.func,
 };
 export default Footer;

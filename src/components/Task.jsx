@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DateTask from './date';
+import DateTask from './Date';
 
 class Task extends React.Component {
   constructor(props) {
@@ -22,15 +22,12 @@ class Task extends React.Component {
       editingTask(value, id);
       if (!value) onDeletTask(id);
     };
-
-    this.onChecked = () => {};
   }
 
   render() {
     const {
       completed,
       editing,
-      checked,
       onCompletedTask,
       task,
       created,
@@ -49,9 +46,8 @@ class Task extends React.Component {
           <input
             className="toggle"
             type="checkbox"
-            checked={checked}
-            onClick={onCompletedTask}
-            onChange={this.onChecked}
+            checked={completed}
+            onChange={onCompletedTask}
           />
           <label>
             <span className="description">{task}</span>
@@ -83,26 +79,21 @@ class Task extends React.Component {
   }
 }
 Task.defaultProps = {
-  id: undefined,
-  checked: false,
   completed: false,
-  created: new Date() - 1,
   editing: false,
   editingTask: () => {},
   onCompletedTask: () => {},
   onDeletTask: () => {},
-  task: 'Error',
 };
 
 Task.propTypes = {
-  id: PropTypes.number,
-  checked: PropTypes.bool,
+  id: PropTypes.number.isRequired,
   completed: PropTypes.bool,
-  created: PropTypes.number,
+  created: PropTypes.number.isRequired,
   editing: PropTypes.bool,
   editingTask: PropTypes.func,
   onCompletedTask: PropTypes.func,
   onDeletTask: PropTypes.func,
-  task: PropTypes.string,
+  task: PropTypes.string.isRequired,
 };
 export default Task;

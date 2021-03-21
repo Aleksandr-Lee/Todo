@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Header from './header';
-import NewTaskForm from './new-task-form';
-import TaskList from './task-list';
-import Footer from './footer';
+import Header from './Header';
+import NewTaskForm from './NewTaskForm';
+import TaskList from './TaskList';
+import Footer from './Footer';
+import buttonsFilter from './buttonsFilter';
 import '../index.css';
 
 class App extends React.Component {
   constructor() {
     super();
     this.newId = 100;
-
     this.state = {
       tasks: [
         //  {
@@ -38,9 +38,8 @@ class App extends React.Component {
         //    created: new Date() - 1,
         //  },
       ],
-      filterTasks: 'all',
+      filterTasks: buttonsFilter[0].name,
     };
-
     this.onCompletedTask = (id) => {
       this.setState((state) => {
         const idx = state.tasks.findIndex((el) => el.id === id);
@@ -97,8 +96,7 @@ class App extends React.Component {
         task: text,
         completed: false,
         editing: false,
-        checked: ('checked', false),
-        created: new Date() - 1,
+        created: Date.now(),
       };
       this.setState((state) => {
         const newArray = [...state.tasks, newTask];
@@ -110,11 +108,11 @@ class App extends React.Component {
 
     this.filterTasks = (tasks, filterTasks) => {
       switch (filterTasks) {
-        case 'all':
+        case buttonsFilter[0].name:
           return tasks;
-        case 'active':
+        case buttonsFilter[1].name:
           return tasks.filter((el) => !el.completed);
-        case 'completed':
+        case buttonsFilter[2].name:
           return tasks.filter((el) => el.completed);
         default:
           return tasks;
@@ -154,6 +152,7 @@ class App extends React.Component {
           onCompletedTask={this.onCompletedTask}
         />
         <Footer
+          filter={this.filter}
           itemsLeftCount={itemsLeftCount}
           filterTasks={filterTasks}
           onFilterTasks={this.onFilterTasks}

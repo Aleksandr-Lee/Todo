@@ -25,7 +25,8 @@
 		"jsx-a11y/label-has-associated-control": [ "error", {
 		  "assert": "either"
 		}],
-	
+		"react/require-default-props": 0,
+		"react/default-props-match-prop-types": 0,
 		"react/state-in-constructor": ["off"],
 		"react/jsx-props-no-spreading": ["off"],
 		"react/static-property-placement": "off",
