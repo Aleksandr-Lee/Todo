@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DateTask from './Date';
+import TimerTask from './TimerTask';
 
 class Task extends React.Component {
   constructor(props) {
@@ -50,8 +51,11 @@ class Task extends React.Component {
             onChange={onCompletedTask}
           />
           <label>
-            <span className="description">{task}</span>
-            <DateTask created={created} />
+            <span className="title">{task}</span>
+            <TimerTask />
+            <span className="description">
+              <DateTask created={created} />
+            </span>
           </label>
           <button
             type="button"

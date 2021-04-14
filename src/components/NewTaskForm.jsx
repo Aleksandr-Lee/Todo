@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -31,16 +32,17 @@ class NewTaskForm extends React.Component {
   render() {
     const { task } = this.state;
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="new-todo-form" onSubmit={this.onSubmit}>
         <input
           type="text"
           className="new-todo"
           placeholder="What needs to be done?"
           value={task}
-          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           onChange={this.onEnterTask}
         />
+        {/* <input className="new-todo-form__timer" placeholder="Min" />
+        <input className="new-todo-form__timer" placeholder="Sec" /> */}
       </form>
     );
   }
