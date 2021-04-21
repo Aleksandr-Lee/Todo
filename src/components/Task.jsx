@@ -6,6 +6,7 @@ import TimerTask from './TimerTask';
 class Task extends React.Component {
   constructor(props) {
     super(props);
+
     const { task, editingTask, id, onDeletTask } = this.props;
     this.state = {
       value: task,
@@ -35,7 +36,10 @@ class Task extends React.Component {
       editingTask,
       id,
       onDeletTask,
+      timer,
+      timeTask,
     } = this.props;
+
     const { value } = this.state;
     let classNames;
     if (completed) classNames = 'completed';
@@ -52,7 +56,7 @@ class Task extends React.Component {
           />
           <label>
             <span className="title">{task}</span>
-            <TimerTask />
+            <TimerTask timer={timer} timeTask={timeTask} id={id} />
             <span className="description">
               <DateTask created={created} />
             </span>
@@ -85,6 +89,8 @@ class Task extends React.Component {
 Task.defaultProps = {
   completed: false,
   editing: false,
+  timer: 0,
+  timeTask: () => {},
   editingTask: () => {},
   onCompletedTask: () => {},
   onDeletTask: () => {},
@@ -99,5 +105,7 @@ Task.propTypes = {
   onCompletedTask: PropTypes.func,
   onDeletTask: PropTypes.func,
   task: PropTypes.string.isRequired,
+  timeTask: PropTypes.func,
+  timer: PropTypes.number,
 };
 export default Task;

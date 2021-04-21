@@ -256,6 +256,9 @@ body {
   color: #cdcdcd;
   text-decoration: line-through;
 }
+.title {
+  max-width: 145px;
+}
 
 .todo-list li .icon {
   width: 30px;
@@ -299,6 +302,10 @@ body {
   font-size: 18px;
   width: 18px;
   height: 18px;
+}
+
+.icon-pause {
+  padding-right: 22px;
 }
 
 .todo-list li .icon-play {

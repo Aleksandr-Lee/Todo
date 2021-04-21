@@ -1,5 +1,6 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-return-assign */
 import React from 'react';
-
 import Header from './Header';
 import NewTaskForm from './NewTaskForm';
 import TaskList from './TaskList';
@@ -13,14 +14,15 @@ class App extends React.Component {
     this.newId = 100;
     this.state = {
       tasks: [
-        //  {
-        //    id: 1,
-        //    task: 'Completed task',
-        //    completed: false,
-        //    editing: false,
-        //    checked: ('checked', false),
-        //    created: new Date() - 1020000,
-        //  },
+        //   {
+        //     id: 1,
+        //     task: 'Completed task',
+        //     completed: false,
+        //     editing: false,
+        //     checked: ('checked', false),
+        //     created: new Date() - 1020000,
+        //     timer: 120,
+        //   },
         //  {
         //    id: 2,
         //    task: 'Editing task',
@@ -97,9 +99,30 @@ class App extends React.Component {
         completed: false,
         editing: false,
         created: Date.now(),
+        timer: 0,
       };
       this.setState((state) => {
         const newArray = [...state.tasks, newTask];
+        return {
+          tasks: newArray,
+        };
+      });
+    };
+
+    this.timeTask = (id) => {
+      this.setState((state) => {
+        const idx = state.tasks.findIndex((el) => el.id === id);
+        const { timer } = state.tasks[idx];
+        const time = timer + 1;
+        const newTask = {
+          ...state.tasks[idx],
+          timer: time,
+        };
+        const newArray = [
+          ...state.tasks.slice(0, idx),
+          newTask,
+          ...state.tasks.slice(idx + 1),
+        ];
         return {
           tasks: newArray,
         };
@@ -150,6 +173,7 @@ class App extends React.Component {
           onDeletTask={this.deletTask}
           editingTask={this.editingTask}
           onCompletedTask={this.onCompletedTask}
+          timeTask={this.timeTask}
         />
         <Footer
           filter={this.filter}

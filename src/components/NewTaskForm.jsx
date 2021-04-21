@@ -41,8 +41,6 @@ class NewTaskForm extends React.Component {
           autoFocus
           onChange={this.onEnterTask}
         />
-        {/* <input className="new-todo-form__timer" placeholder="Min" />
-        <input className="new-todo-form__timer" placeholder="Sec" /> */}
       </form>
     );
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Task from './Task';
 
 const TaskList = (props) => {
-  const { task, onDeletTask, editingTask, onCompletedTask } = props;
+  const { task, onDeletTask, editingTask, onCompletedTask, timeTask } = props;
 
   const element = task.map((item) => (
     <Task
@@ -13,9 +13,11 @@ const TaskList = (props) => {
       completed={item.completed}
       editing={item.editing}
       created={item.created}
+      timer={item.timer}
       onDeletTask={() => onDeletTask(item.id)}
       editingTask={editingTask}
       onCompletedTask={() => onCompletedTask(item.id)}
+      timeTask={timeTask}
     />
   ));
   return (
@@ -29,6 +31,7 @@ TaskList.defaultProps = {
   onDeletTask: () => {},
   editingTask: () => {},
   onCompletedTask: () => {},
+  timeTask: () => {},
 };
 
 TaskList.propTypes = {
@@ -36,5 +39,6 @@ TaskList.propTypes = {
   onDeletTask: PropTypes.func,
   editingTask: PropTypes.func,
   onCompletedTask: PropTypes.func,
+  timeTask: PropTypes.func,
 };
 export default TaskList;
