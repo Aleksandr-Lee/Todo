@@ -6,25 +6,24 @@ import TimerTask from './TimerTask';
 class Task extends React.Component {
   constructor(props) {
     super(props);
-
-    const { task, editingTask, id, onDeletTask } = this.props;
     this.state = {
-      value: task,
-    };
-
-    this.onEnterEdit = (event) => {
-      this.setState({
-        value: event.target.value,
-      });
-    };
-
-    this.onSubmitEdit = (event) => {
-      const { value } = this.state;
-      event.preventDefault();
-      editingTask(value, id);
-      if (!value) onDeletTask(id);
+      value: '',
     };
   }
+
+  onEnterEdit = (event) => {
+    this.setState({
+      value: event,
+    });
+  };
+
+  onSubmitEdit = (event) => {
+    const { editingTask, id, onDeletTask } = this.props;
+    const { value } = this.state;
+    event.preventDefault();
+    editingTask(value, id);
+    if (!value) onDeletTask(id);
+  };
 
   render() {
     const {
@@ -65,7 +64,10 @@ class Task extends React.Component {
             type="button"
             aria-label="Изменение задачи"
             className="icon icon-edit"
-            onClick={() => editingTask(value, id)}
+            onClick={() => {
+              editingTask(task, id);
+              this.onEnterEdit(task);
+            }}
           />
           <button
             type="button"
@@ -79,7 +81,7 @@ class Task extends React.Component {
             type="text"
             className="edit"
             value={value}
-            onChange={this.onEnterEdit}
+            onChange={(event) => this.onEnterEdit(event.target.value)}
           />
         </form>
       </li>

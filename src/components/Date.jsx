@@ -9,20 +9,22 @@ class DateTask extends React.Component {
     this.state = {
       date: created,
     };
-    this.componentDidMount = () => {
-      this.timerID = setInterval(
-        () =>
-          this.setState({
-            date: new Date(created),
-          }),
-        15000
-      );
-    };
-
-    this.componentWillUnmount = () => {
-      clearInterval(this.timerID);
-    };
   }
+
+  componentDidMount = () => {
+    const { created } = this.props;
+    this.timerID = setInterval(
+      () =>
+        this.setState({
+          date: new Date(created),
+        }),
+      15000
+    );
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.timerID);
+  };
 
   render() {
     const { date } = this.state;

@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-return-assign */
 import React from 'react';
 import Header from './Header';
 import NewTaskForm from './NewTaskForm';
@@ -42,121 +40,124 @@ class App extends React.Component {
       ],
       filterTasks: buttonsFilter[0].name,
     };
-    this.onCompletedTask = (id) => {
-      this.setState((state) => {
-        const idx = state.tasks.findIndex((el) => el.id === id);
-        const oldTask = state.tasks[idx];
-        const newTask = {
-          ...oldTask,
-          checked: !oldTask.checked,
-          completed: !oldTask.completed,
-        };
-        const newArray = [
-          ...state.tasks.slice(0, idx),
-          newTask,
-          ...state.tasks.slice(idx + 1),
-        ];
-        return {
-          tasks: newArray,
-        };
-      });
-    };
-
-    this.deletTask = (id) => {
-      this.setState((state) => {
-        const idx = state.tasks.findIndex((el) => el.id === id);
-        const newArray = [
-          ...state.tasks.slice(0, idx),
-          ...state.tasks.slice(idx + 1),
-        ];
-        return {
-          tasks: newArray,
-        };
-      });
-    };
-
-    this.editingTask = (text, id) => {
-      const { tasks } = this.state;
-      const editedTaskList = tasks.map((item) => {
-        if (id === item.id) {
-          item.task = text;
-          item.editing = !item.editing;
-        }
-        return [];
-      });
-      this.setState(() => {
-        const newArray = editedTaskList;
-        return {
-          newArray,
-        };
-      });
-    };
-
-    this.addTask = (text) => {
-      const newTask = {
-        id: (this.newId += 1),
-        task: text,
-        completed: false,
-        editing: false,
-        created: Date.now(),
-        timer: 0,
-      };
-      this.setState((state) => {
-        const newArray = [...state.tasks, newTask];
-        return {
-          tasks: newArray,
-        };
-      });
-    };
-
-    this.timeTask = (id) => {
-      this.setState((state) => {
-        const idx = state.tasks.findIndex((el) => el.id === id);
-        const { timer } = state.tasks[idx];
-        const time = timer + 1;
-        const newTask = {
-          ...state.tasks[idx],
-          timer: time,
-        };
-        const newArray = [
-          ...state.tasks.slice(0, idx),
-          newTask,
-          ...state.tasks.slice(idx + 1),
-        ];
-        return {
-          tasks: newArray,
-        };
-      });
-    };
-
-    this.filterTasks = (tasks, filterTasks) => {
-      switch (filterTasks) {
-        case buttonsFilter[0].name:
-          return tasks;
-        case buttonsFilter[1].name:
-          return tasks.filter((el) => !el.completed);
-        case buttonsFilter[2].name:
-          return tasks.filter((el) => el.completed);
-        default:
-          return tasks;
-      }
-    };
-
-    this.onFilterTasks = (filterTasks) => {
-      this.setState({
-        filterTasks,
-      });
-    };
-
-    this.clearCompletedTasks = () => {
-      this.setState((state) => {
-        const newArr = state.tasks.filter((el) => !el.completed);
-        return {
-          tasks: newArr,
-        };
-      });
-    };
   }
+
+  onCompletedTask = (id) => {
+    this.setState((state) => {
+      const idx = state.tasks.findIndex((el) => el.id === id);
+      const oldTask = state.tasks[idx];
+      const newTask = {
+        ...oldTask,
+        checked: !oldTask.checked,
+        completed: !oldTask.completed,
+      };
+      const newArray = [
+        ...state.tasks.slice(0, idx),
+        newTask,
+        ...state.tasks.slice(idx + 1),
+      ];
+      return {
+        tasks: newArray,
+      };
+    });
+  };
+
+  deletTask = (id) => {
+    this.setState((state) => {
+      const idx = state.tasks.findIndex((el) => el.id === id);
+      const newArray = [
+        ...state.tasks.slice(0, idx),
+        ...state.tasks.slice(idx + 1),
+      ];
+      return {
+        tasks: newArray,
+      };
+    });
+  };
+
+  editingTask = (text, id) => {
+    const { tasks } = this.state;
+    const editedTaskList = tasks.map((item) => {
+      if (id === item.id) {
+        item.task = text;
+        item.editing = !item.editing;
+      }
+      return [];
+    });
+    this.setState(() => {
+      const newArray = editedTaskList;
+      return {
+        newArray,
+      };
+    });
+  };
+
+  addTask = (text) => {
+    const newTask = {
+      id: (this.newId += 1),
+      task: text,
+      completed: false,
+      editing: false,
+      created: Date.now(),
+      timer: 0,
+    };
+    this.setState((state) => {
+      const newArray = [...state.tasks, newTask];
+      return {
+        tasks: newArray,
+      };
+    });
+  };
+
+  timeTask = (id, time) => {
+    this.setState((state) => {
+      const idx = state.tasks.findIndex((el) => el.id === id);
+      if (state.tasks[idx] === undefined) {
+        return [];
+      }
+
+      const newTask = {
+        ...state.tasks[idx],
+        timer: time,
+      };
+      const newArray = [
+        ...state.tasks.slice(0, idx),
+        newTask,
+        ...state.tasks.slice(idx + 1),
+      ];
+      return {
+        tasks: newArray,
+      };
+    });
+  };
+
+  filterTasks = (tasks, filterTasks) => {
+    switch (filterTasks) {
+      case buttonsFilter[0].name:
+        return tasks;
+      case buttonsFilter[1].name:
+        return tasks.filter((el) => !el.completed);
+      case buttonsFilter[2].name:
+        return tasks.filter((el) => el.completed);
+      default:
+        return tasks;
+    }
+  };
+
+  onFilterTasks = (filterTasks) => {
+    this.setState({
+      filterTasks,
+    });
+  };
+
+  clearCompletedTasks = () => {
+    this.setState((state) => {
+      const newArr = state.tasks.filter((el) => !el.completed);
+      return {
+        tasks: newArr,
+      };
+    });
+  };
 
   render() {
     const { tasks, filterTasks } = this.state;
