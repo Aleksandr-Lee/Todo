@@ -89,27 +89,57 @@ export default TimerTask;
 //     super(props);
 //     this.state = {
 //       timerPlay: false,
+//       timerId: null,
+//       time: new Date(),
 //     };
+//   }
+
+//   componentDidMount() {
+//     this.startTimer();
+//     // eslint-disable-next-line react/prop-types
+//    //  const { timer } = this.props;
+//    //  this.setState({
+//    //    timerId: timer,
+//    //  });
+//   }
+
+//   componentWillUnmount() {
+//     clearTimeout(this.timerId);
 //   }
 
 //   startTimer = () => {
 //     const { timerPlay } = this.state;
-//     const { id, timeTask } = this.props;
-//     this.setState({ timerPlay: true });
+//     const delay = 1000;
+//     clearTimeout(this.timerId);
 //     if (!timerPlay) {
-//       this.timer = setInterval(() => timeTask(id), 1000);
+//       const newTimerId = setTimeout(() => {
+//         this.startTimer();
+//       }, delay);
+
+//       this.setState(({ timerId }) => ({
+//         timerId: newTimerId,
+//         time: new Date(),
+//         timerPlay: true,
+//       }));
 //     }
 //   };
 
 //   pauseTimer = () => {
-//     clearInterval(this.timer);
-//     this.setState({ timerPlay: false });
-//   };
+// 	    const { timeTask, id } = this.props;
+// 	    const { timerId } = this.state;
+// 	    clearInterval(this.timerId);
+// 	    this.setState({
+// 	      timerPlay: false,
+// 	    });
+// 	    timeTask(id, timerId);
+// 	  };
 
 //   render() {
-//     const { timer } = this.props;
-//     const minute = `0${Math.floor((timer % 3600) / 60)}`.slice(-2);
-//     const second = `0${timer % 60}`.slice(-2);
+//     // eslint-disable-next-line react/prop-types
+//     const { timerId } = this.state;
+//     console.log(timerId);
+//     const minute = `0${Math.floor((timerId % 3600) / 60)}`.slice(-2);
+//     const second = `0${timerId % 60}`.slice(-2);
 
 //     return (
 //       <span className="description">
@@ -132,15 +162,15 @@ export default TimerTask;
 //   }
 // }
 
-// TimerTask.defaultProps = {
-//   timer: 0,
-//   timeTask: () => {},
-// };
+// // TimerTask.defaultProps = {
+// //   timer: 0,
+// //   timeTask: () => {},
+// // };
 
-// TimerTask.propTypes = {
-//   id: PropTypes.number.isRequired,
-//   timeTask: PropTypes.func,
-//   timer: PropTypes.number,
-// };
+// // TimerTask.propTypes = {
+// //   id: PropTypes.number.isRequired,
+// //   timeTask: PropTypes.func,
+// //   timer: PropTypes.number,
+// // };
 
 // export default TimerTask;

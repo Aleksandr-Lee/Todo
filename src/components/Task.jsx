@@ -9,7 +9,12 @@ class Task extends React.Component {
     this.state = {
       value: '',
     };
+    this.autofocus = React.createRef();
   }
+
+  componentDidUpdate = () => {
+    this.autofocus.current.focus();
+  };
 
   onEnterEdit = (event) => {
     this.setState({
@@ -78,6 +83,7 @@ class Task extends React.Component {
         </div>
         <form onSubmit={this.onSubmitEdit}>
           <input
+            ref={this.autofocus}
             type="text"
             className="edit"
             value={value}
